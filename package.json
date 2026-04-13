@@ -4,7 +4,9 @@
   "description": "Initialized by Tymeline so the AI Employee can run tasks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "jest",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,12 +19,17 @@
     "url": "https://github.com/QCI-Demo-Stage/note-taker-app/issues"
   },
   "homepage": "https://github.com/QCI-Demo-Stage/note-taker-app#readme",
+  "jest": {
+    "passWithNoTests": true
+  },
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
     "jest": "^30.3.0",
+    "prettier": "^3.8.2",
     "supertest": "^7.2.2"
   }
 }
