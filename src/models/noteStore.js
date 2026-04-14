@@ -52,9 +52,16 @@ function remove(id) {
   return true;
 }
 
+/** Clears all notes and resets id sequence (for tests). */
+function reset() {
+  notes.length = 0;
+  nextId = 1;
+}
+
 module.exports = {
   getAll,
   create,
   update,
   remove,
+  reset,
 };

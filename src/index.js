@@ -4,21 +4,14 @@
 
 const express = require("express");
 const cors = require("cors");
-const noteStore = require("./models/noteStore");
+const notesRouter = require("./routes/notes");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.get("/notes", (req, res, next) => {
-  try {
-    const notes = noteStore.getAll();
-    res.status(200).json(notes);
-  } catch (err) {
-    next(err);
-  }
-});
+app.use(notesRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
