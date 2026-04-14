@@ -12,6 +12,16 @@ function getAll() {
 }
 
 /**
+ * @param {string|number} id
+ * @returns {Record<string, unknown>|null}
+ */
+function getById(id) {
+  const idStr = String(id);
+  const found = notes.find((n) => String(n.id) === idStr);
+  return found ? { ...found } : null;
+}
+
+/**
  * @param {Record<string, unknown>} note - Fields for the new note (id is set by the store).
  * @returns {Record<string, unknown>}
  */
@@ -54,6 +64,7 @@ function remove(id) {
 
 module.exports = {
   getAll,
+  getById,
   create,
   update,
   remove,

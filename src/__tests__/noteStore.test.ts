@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 type NoteStore = {
   getAll: () => Array<Record<string, unknown>>;
+  getById: (id: string | number) => Record<string, unknown> | null;
   create: (note: Record<string, unknown>) => Record<string, unknown>;
   update: (
     id: string | number,
@@ -21,6 +22,18 @@ describe("noteStore", () => {
 
   it("getAll returns empty list initially", () => {
     expect(noteStore.getAll()).toEqual([]);
+  });
+
+  it("getById returns null when missing", () => {
+    expect(noteStore.getById("1")).toBeNull();
+  });
+
+  it("getById returns a copy of the note", () => {
+    noteStore.create({ title: "t" });
+    const one = noteStore.getById("1");
+    expect(one).toEqual({ id: "1", title: "t" });
+    if (one) one.title = "mutated";
+    expect(noteStore.getById("1")?.title).toBe("t");
   });
 
   it("create assigns id and stores note", () => {
