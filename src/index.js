@@ -13,7 +13,11 @@ app.use(cors());
 app.use(express.json());
 app.use(notesRouter);
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Note Taker API listening on port ${port}`);
-});
+if (require.main === module) {
+  app.listen(port, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Note Taker API listening on port ${port}`);
+  });
+}
+
+module.exports = { app };
