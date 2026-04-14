@@ -1,19 +1,37 @@
 /**
- * Note Taker backend entry point.
+ * Note Taker backend: Express app and HTTP server entry.
  */
 
-const cors = require("cors");
 const express = require("express");
-const notesRouter = require("./routes/notes");
+const cors = require("cors");
+const noteStore = require("./models/noteStore");
 
 const app = express();
-const port = Number(process.env.PORT) || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(notesRouter);
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Note Taker API listening on port ${port}`);
+app.get("/notes", (req, res, next) => {
+  try {
+    const notes = noteStore.getAll();
+    res.status(200).json(notes);
+  } catch (err) {
+    next(err);
+  }
 });
+
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: "Internal Server Error" });
+});
+
+function listen(port = process.env.PORT ?? 3000) {
+  return app.listen(port);
+}
+
+/* istanbul ignore if: CLI entry — not exercised by unit tests */
+if (require.main === module) {
+  listen();
+}
+
+module.exports = { app, listen };
