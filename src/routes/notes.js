@@ -8,25 +8,27 @@ const {
 
 const router = express.Router();
 
-function controllerCreate(req, res) {
-  const created = noteStore.create({ content: req.body.content });
+async function controllerCreate(req, res) {
+  const created = await noteStore.create({ content: req.body.content });
   res.status(201).json(created);
 }
 
-function controllerRead(_req, res) {
-  res.json(noteStore.getAll());
+async function controllerRead(_req, res) {
+  res.json(await noteStore.getAll());
 }
 
-function controllerUpdate(req, res) {
-  const updated = noteStore.update(req.params.id, { content: req.body.content });
+async function controllerUpdate(req, res) {
+  const updated = await noteStore.update(req.params.id, {
+    content: req.body.content,
+  });
   if (!updated) {
     return res.status(404).json({ error: 'Note not found' });
   }
   res.json(updated);
 }
 
-function controllerDelete(req, res) {
-  const removed = noteStore.remove(req.params.id);
+async function controllerDelete(req, res) {
+  const removed = await noteStore.remove(req.params.id);
   if (!removed) {
     return res.status(404).json({ error: 'Note not found' });
   }

@@ -22,9 +22,10 @@ function validateUpdateBody(req, res, next) {
   next();
 }
 
-function validateNoteExists(req, res, next) {
+async function validateNoteExists(req, res, next) {
   const { id } = req.params;
-  const exists = noteStore.getAll().some((n) => n.id === id);
+  const all = await noteStore.getAll();
+  const exists = all.some((n) => n.id === id);
   if (!exists) {
     return res.status(404).json({ error: 'Note not found' });
   }
