@@ -1,0 +1,20 @@
+{
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "script"
+  },
+  "ignorePatterns": ["node_modules/", "coverage/"],
+  "overrides": [
+    {
+      "files": ["test/**/*.js", "**/*.test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
