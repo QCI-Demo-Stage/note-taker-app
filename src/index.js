@@ -1,4 +1,19 @@
-/**
- * Note Taker API entry point (placeholder).
- * Express server wiring will be added in subsequent stories.
- */
+const express = require('express');
+const cors = require('cors');
+const notesRouter = require('./routes/notes');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(cors({ origin: '*' }));
+app.use(express.json());
+app.use(notesRouter);
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Note Taker API listening on port ${PORT}`);
+  });
+}
+
+module.exports = app;
