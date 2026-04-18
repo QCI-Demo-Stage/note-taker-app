@@ -1,0 +1,1 @@
+cd note-taker && npm run lint
